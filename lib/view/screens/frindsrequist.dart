@@ -80,80 +80,91 @@ class FrindsRequist extends StatelessWidget {
             const SizedBox(
               height: 10,
             ),
-            ListView.builder(
-                physics: NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: controller.user!.users!.length,
-                itemBuilder: (context, index) => Container(
-                      margin: const EdgeInsets.all(5),
-                      padding: const EdgeInsets.all(5),
-                      child: Row(
-                        children: [
-                          Container(
-                            width: devicesize.width * 0.25,
-                            child: const CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqmo_9xD80HtbddXgEKuT3IF24RBpI5NLVpw&usqp=CAU"),
-                              radius: 45,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+            GetBuilder<FriendsRequistController>(builder: (context) {
+              return controller.user != null
+                  ? ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: controller.user!.users!.length,
+                      itemBuilder: (context, index) => Container(
+                            margin: const EdgeInsets.all(5),
+                            padding: const EdgeInsets.all(5),
+                            child: Row(
                               children: [
-                                Text(
-                                  "${controller.user!.users![index].firstName}"
-                                  " ${controller.user!.users![index].lastName}",
-                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                Container(
+                                  width: devicesize.width * 0.25,
+                                  child: const CircleAvatar(
+                                    backgroundImage: NetworkImage(
+                                        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqmo_9xD80HtbddXgEKuT3IF24RBpI5NLVpw&usqp=CAU"),
+                                    radius: 45,
+                                  ),
                                 ),
-                                Text(
-                                  "${controller.user!.users![index].age}"
-                                  " mutual friends",
-                                  style: Theme.of(context).textTheme.bodySmall,
+                                const SizedBox(
+                                  width: 10,
                                 ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Expanded(
-                                      child: MaterialButton(
-                                        height: 40,
-                                        color: const Color(0xff1D73E8),
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        onPressed: () {},
-                                        child: const Text(
-                                          "Add Friend",
-                                          style: TextStyle(color: Colors.white),
-                                        ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "${controller.user!.users![index].firstName}"
+                                        " ${controller.user!.users![index].lastName}",
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    Expanded(
-                                      child: MaterialButton(
-                                        height: 40,
-                                        color: Colors.grey[300],
-                                        shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(5)),
-                                        onPressed: () {},
-                                        child: const Text("Remove"),
+                                      Text(
+                                        "${controller.user!.users![index].age}"
+                                        " mutual friends",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodySmall,
                                       ),
-                                    ),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Expanded(
+                                            child: MaterialButton(
+                                              height: 40,
+                                              color: const Color(0xff1D73E8),
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              onPressed: () {},
+                                              child: const Text(
+                                                "Add Friend",
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          Expanded(
+                                            child: MaterialButton(
+                                              height: 40,
+                                              color: Colors.grey[300],
+                                              shape: RoundedRectangleBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(5)),
+                                              onPressed: () {},
+                                              child: const Text("Remove"),
+                                            ),
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 )
                               ],
                             ),
-                          )
-                        ],
-                      ),
-                    )),
+                          ))
+                  : const Center(
+                      child: CircularProgressIndicator(),
+                    );
+            }),
           ],
         ),
       ),

@@ -9,6 +9,7 @@ class FriendsRequistController extends GetxController {
   @override
   void onInit() async {
     await getusers();
+
     super.onInit();
   }
 
@@ -21,5 +22,6 @@ class FriendsRequistController extends GetxController {
 
     user = UsersModel.fromJson(data);
     print(user!.users![0].firstName);
+    update();
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_2/componant/componant.dart';
 import 'package:flutter_application_2/controller/screencontroller/videocontroller.dart';
 import 'package:get/get.dart';
+import 'package:video_player/video_player.dart';
 
 class Videos extends StatelessWidget {
   Videos({super.key});
@@ -24,7 +25,7 @@ class Videos extends StatelessWidget {
                         color: Colors.black,
                         fontSize: 30),
                   ),
-                  Spacer(),
+                  const Spacer(),
                   CircleAvatar(
                       backgroundColor: Colors.grey[350],
                       radius: 18,
@@ -35,7 +36,7 @@ class Videos extends StatelessWidget {
                             size: 20,
                             color: Colors.black,
                           ))),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   CircleAvatar(
@@ -72,7 +73,7 @@ class Videos extends StatelessWidget {
                               ? BoxDecoration(
                                   color: Colors.grey[200],
                                   borderRadius: BorderRadius.circular(15))
-                              : BoxDecoration(),
+                              : const BoxDecoration(),
                           child: Text(
                             wochlist[index],
                             style: TextStyle(
@@ -83,9 +84,60 @@ class Videos extends StatelessWidget {
                         ),
                       )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 5,
-            )
+            ),
+            MaterialButton(
+              onPressed: () {
+                // controller.getpostimage();
+              },
+              child: const Icon(Icons.video_call_rounded),
+            ),
+            Container(
+              height: 300,
+              child: Center(
+                child: contoller.cont.value.isInitialized
+                    ? Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          AspectRatio(
+                            aspectRatio: 1 / 1,
+                            // contoller.cont.value.aspectRatio,
+                            child: VideoPlayer(contoller.cont),
+                          ),
+                          Row(
+                            children: [
+                              FloatingActionButton(
+                                onPressed: () {
+                                  controller.cont.setVolume(100000000);
+                                  controller.update();
+                                },
+                                child: const Icon(Icons.volume_mute),
+                              ),
+                              const Spacer(),
+                              FloatingActionButton(
+                                onPressed: () {
+                                  controller.cont.value.isPlaying
+                                      ? controller.cont.pause().then((value) {
+                                          controller.update();
+                                        })
+                                      : contoller.cont.play().then((value) {
+                                          controller.update();
+                                        });
+                                },
+                                child: Icon(
+                                  controller.cont.value.isPlaying
+                                      ? Icons.pause
+                                      : Icons.play_arrow,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      )
+                    : Container(),
+              ),
+            ),
           ],
         ),
       );
@@ -93,55 +145,5 @@ class Videos extends StatelessWidget {
   }
 }
  // Column(children: [
-      //   // MaterialButton(
-      //   //   onPressed: () {
-      //   //     // controller.getpostimage();
-      //   //   },
-      //   //   child: Icon(Icons.video_call_rounded),
-      //   // ),
-      //   Container(
-      //     height: 300,
-      //     child: Center(
-      //       child: contoller.cont.value.isInitialized
-      //           ? Stack(
-      //               alignment: Alignment.bottomCenter,
-      //               children: [
-      //                 AspectRatio(
-      //                   aspectRatio: 1 / 1,
-      //                   // contoller.cont.value.aspectRatio,
-      //                   child: VideoPlayer(contoller.cont),
-      //                 ),
-      //                 Row(
-      //                   children: [
-      //                     FloatingActionButton(
-      //                       onPressed: () {
-      //                         controller.cont.setVolume(100000000);
-      //                         controller.update();
-      //                       },
-      //                       child: Icon(Icons.volume_mute),
-      //                     ),
-      //                     Spacer(),
-      //                     FloatingActionButton(
-      //                       onPressed: () {
-      //                         controller.cont.value.isPlaying
-      //                             ? controller.cont.pause().then((value) {
-      //                                 controller.update();
-      //                               })
-      //                             : contoller.cont.play().then((value) {
-      //                                 controller.update();
-      //                               });
-      //                       },
-      //                       child: Icon(
-      //                         controller.cont.value.isPlaying
-      //                             ? Icons.pause
-      //                             : Icons.play_arrow,
-      //                       ),
-      //                     ),
-      //                   ],
-      //                 ),
-      //               ],
-      //             )
-      //           : Container(),
-      //     ),
-      //   ),
+      //   
       // ]);
